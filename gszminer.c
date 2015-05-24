@@ -138,9 +138,9 @@ time_t last_getwork;
 #if defined(USE_USBUTILS)
 int nDevs;
 #endif
-bool opt_sha256;
+bool opt_sha256 = false;
 #ifdef USE_SCRYPT
-bool opt_scrypt;
+bool opt_scrypt = true;
 #endif
 bool opt_restart = true;
 bool opt_nogpu;
