@@ -79,7 +79,7 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 target_triplet = @target@
-bin_PROGRAMS = gsminer$(EXEEXT)
+bin_PROGRAMS = gszminer$(EXEEXT)
 @HAVE_WINDOWS_FALSE@am__append_1 = @LIBCURL_CFLAGS@
 @HAS_SCRYPT_TRUE@am__append_2 = scrypt.c scrypt.h
 @NEED_FPGAUTILS_TRUE@am__append_3 = fpgautils.c fpgautils.h
@@ -117,33 +117,34 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am__gsminer_SOURCES_DIST = cgminer.c elist.h miner.h compat.h \
+am__gszminer_SOURCES_DIST = gszminer.c elist.h miner.h compat.h \
 	bench_block.h util.c util.h uthash.h logging.h sha2.c sha2.h \
 	api.c logging.c klist.h klist.c noncedup.c scrypt.c scrypt.h \
 	fpgautils.c fpgautils.h usbutils.c usbutils.h \
 	driver-gridseed.c driver-gridseed.h driver-zeus.c \
 	driver-zeus.h
-@HAS_SCRYPT_TRUE@am__objects_1 = gsminer-scrypt.$(OBJEXT)
-@NEED_FPGAUTILS_TRUE@am__objects_2 = gsminer-fpgautils.$(OBJEXT)
-@WANT_USBUTILS_TRUE@am__objects_3 = gsminer-usbutils.$(OBJEXT)
-@HAS_GRIDSEED_TRUE@am__objects_4 = gsminer-driver-gridseed.$(OBJEXT)
-@HAS_ZEUS_TRUE@am__objects_5 = gsminer-driver-zeus.$(OBJEXT)
-am_gsminer_OBJECTS = gsminer-cgminer.$(OBJEXT) gsminer-util.$(OBJEXT) \
-	gsminer-sha2.$(OBJEXT) gsminer-api.$(OBJEXT) \
-	gsminer-logging.$(OBJEXT) gsminer-klist.$(OBJEXT) \
-	gsminer-noncedup.$(OBJEXT) $(am__objects_1) $(am__objects_2) \
-	$(am__objects_3) $(am__objects_4) $(am__objects_5)
-gsminer_OBJECTS = $(am_gsminer_OBJECTS)
+@HAS_SCRYPT_TRUE@am__objects_1 = gszminer-scrypt.$(OBJEXT)
+@NEED_FPGAUTILS_TRUE@am__objects_2 = gszminer-fpgautils.$(OBJEXT)
+@WANT_USBUTILS_TRUE@am__objects_3 = gszminer-usbutils.$(OBJEXT)
+@HAS_GRIDSEED_TRUE@am__objects_4 = gszminer-driver-gridseed.$(OBJEXT)
+@HAS_ZEUS_TRUE@am__objects_5 = gszminer-driver-zeus.$(OBJEXT)
+am_gszminer_OBJECTS = gszminer-gszminer.$(OBJEXT) \
+	gszminer-util.$(OBJEXT) gszminer-sha2.$(OBJEXT) \
+	gszminer-api.$(OBJEXT) gszminer-logging.$(OBJEXT) \
+	gszminer-klist.$(OBJEXT) gszminer-noncedup.$(OBJEXT) \
+	$(am__objects_1) $(am__objects_2) $(am__objects_3) \
+	$(am__objects_4) $(am__objects_5)
+gszminer_OBJECTS = $(am_gszminer_OBJECTS)
 am__DEPENDENCIES_1 =
-gsminer_DEPENDENCIES = $(am__DEPENDENCIES_1) lib/libgnu.a \
+gszminer_DEPENDENCIES = $(am__DEPENDENCIES_1) lib/libgnu.a \
 	ccan/libccan.a
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-gsminer_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
+gszminer_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
-	$(gsminer_LDFLAGS) $(LDFLAGS) -o $@
+	$(gszminer_LDFLAGS) $(LDFLAGS) -o $@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -178,8 +179,8 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(gsminer_SOURCES)
-DIST_SOURCES = $(am__gsminer_SOURCES_DIST)
+SOURCES = $(gszminer_SOURCES)
+DIST_SOURCES = $(am__gszminer_SOURCES_DIST)
 RECURSIVE_TARGETS = all-recursive check-recursive cscopelist-recursive \
 	ctags-recursive dvi-recursive html-recursive info-recursive \
 	install-data-recursive install-dvi-recursive \
@@ -535,26 +536,26 @@ ACLOCAL_AMFLAGS = -I m4
 JANSSON_CPPFLAGS = -I$(top_builddir)/compat/jansson-2.5/src -I$(top_srcdir)/compat/jansson-2.5/src
 @WANT_USBUTILS_FALSE@USBUTILS_CPPFLAGS = 
 @WANT_USBUTILS_TRUE@USBUTILS_CPPFLAGS = -I$(top_builddir)/compat/libusb-1.0/libusb -I$(top_srcdir)/compat/libusb-1.0/libusb
-EXTRA_DIST = example.conf linux-usb-cgminer \
+EXTRA_DIST = example.conf linux-usb-gszminer \
 		  api-example.php miner.php	\
 		  API.class API.java api-example.c windows-build.txt \
 		  API-README \
 		  ASIC-README \
-		  01-cgminer.rules
+		  01-gszminer.rules
 
 SUBDIRS = lib compat ccan
-gsminer_CPPFLAGS = $(PTHREAD_FLAGS) -fno-strict-aliasing \
+gszminer_CPPFLAGS = $(PTHREAD_FLAGS) -fno-strict-aliasing \
 	$(JANSSON_CPPFLAGS) $(USBUTILS_CPPFLAGS) -I$(top_builddir)/lib \
 	-I$(top_srcdir)/lib $(am__append_1)
-gsminer_LDFLAGS = $(PTHREAD_FLAGS)
-gsminer_LDADD = $(DLOPEN_FLAGS) @LIBCURL_LIBS@ @JANSSON_LIBS@ @PTHREAD_LIBS@ \
+gszminer_LDFLAGS = $(PTHREAD_FLAGS)
+gszminer_LDADD = $(DLOPEN_FLAGS) @LIBCURL_LIBS@ @JANSSON_LIBS@ @PTHREAD_LIBS@ \
 		  @NCURSES_LIBS@ @PDCURSES_LIBS@ @WS2_LIBS@ \
 		  @LIBUSB_LIBS@ @LIBUDEV_LIBS@ @MM_LIBS@ @RT_LIBS@ \
 		  @MATH_LIBS@ lib/libgnu.a ccan/libccan.a
 
 
 # common sources
-gsminer_SOURCES := cgminer.c elist.h miner.h compat.h bench_block.h \
+gszminer_SOURCES := gszminer.c elist.h miner.h compat.h bench_block.h \
 	util.c util.h uthash.h logging.h sha2.c sha2.h api.c logging.c \
 	klist.h klist.c noncedup.c $(am__append_2) $(am__append_3) \
 	$(am__append_4) $(am__append_5) $(am__append_6)
@@ -662,9 +663,9 @@ clean-binPROGRAMS:
 	echo " rm -f" $$list; \
 	rm -f $$list
 
-gsminer$(EXEEXT): $(gsminer_OBJECTS) $(gsminer_DEPENDENCIES) $(EXTRA_gsminer_DEPENDENCIES) 
-	@rm -f gsminer$(EXEEXT)
-	$(AM_V_CCLD)$(gsminer_LINK) $(gsminer_OBJECTS) $(gsminer_LDADD) $(LIBS)
+gszminer$(EXEEXT): $(gszminer_OBJECTS) $(gszminer_DEPENDENCIES) $(EXTRA_gszminer_DEPENDENCIES) 
+	@rm -f gszminer$(EXEEXT)
+	$(AM_V_CCLD)$(gszminer_LINK) $(gszminer_OBJECTS) $(gszminer_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -672,18 +673,18 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsminer-api.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsminer-cgminer.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsminer-driver-gridseed.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsminer-driver-zeus.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsminer-fpgautils.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsminer-klist.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsminer-logging.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsminer-noncedup.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsminer-scrypt.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsminer-sha2.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsminer-usbutils.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsminer-util.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gszminer-api.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gszminer-gszminer.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gszminer-driver-gridseed.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gszminer-driver-zeus.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gszminer-fpgautils.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gszminer-klist.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gszminer-logging.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gszminer-noncedup.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gszminer-scrypt.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gszminer-sha2.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gszminer-usbutils.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gszminer-util.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
@@ -709,173 +710,173 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
 
-gsminer-cgminer.o: cgminer.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gsminer-cgminer.o -MD -MP -MF $(DEPDIR)/gsminer-cgminer.Tpo -c -o gsminer-cgminer.o `test -f 'cgminer.c' || echo '$(srcdir)/'`cgminer.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsminer-cgminer.Tpo $(DEPDIR)/gsminer-cgminer.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='cgminer.c' object='gsminer-cgminer.o' libtool=no @AMDEPBACKSLASH@
+gszminer-gszminer.o: gszminer.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gszminer-gszminer.o -MD -MP -MF $(DEPDIR)/gszminer-gszminer.Tpo -c -o gszminer-gszminer.o `test -f 'gszminer.c' || echo '$(srcdir)/'`gszminer.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gszminer-gszminer.Tpo $(DEPDIR)/gszminer-gszminer.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gszminer.c' object='gszminer-gszminer.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gsminer-cgminer.o `test -f 'cgminer.c' || echo '$(srcdir)/'`cgminer.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gszminer-gszminer.o `test -f 'gszminer.c' || echo '$(srcdir)/'`gszminer.c
 
-gsminer-cgminer.obj: cgminer.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gsminer-cgminer.obj -MD -MP -MF $(DEPDIR)/gsminer-cgminer.Tpo -c -o gsminer-cgminer.obj `if test -f 'cgminer.c'; then $(CYGPATH_W) 'cgminer.c'; else $(CYGPATH_W) '$(srcdir)/cgminer.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsminer-cgminer.Tpo $(DEPDIR)/gsminer-cgminer.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='cgminer.c' object='gsminer-cgminer.obj' libtool=no @AMDEPBACKSLASH@
+gszminer-gszminer.obj: gszminer.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gszminer-gszminer.obj -MD -MP -MF $(DEPDIR)/gszminer-gszminer.Tpo -c -o gszminer-gszminer.obj `if test -f 'gszminer.c'; then $(CYGPATH_W) 'gszminer.c'; else $(CYGPATH_W) '$(srcdir)/gszminer.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gszminer-gszminer.Tpo $(DEPDIR)/gszminer-gszminer.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gszminer.c' object='gszminer-gszminer.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gsminer-cgminer.obj `if test -f 'cgminer.c'; then $(CYGPATH_W) 'cgminer.c'; else $(CYGPATH_W) '$(srcdir)/cgminer.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gszminer-gszminer.obj `if test -f 'gszminer.c'; then $(CYGPATH_W) 'gszminer.c'; else $(CYGPATH_W) '$(srcdir)/gszminer.c'; fi`
 
-gsminer-util.o: util.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gsminer-util.o -MD -MP -MF $(DEPDIR)/gsminer-util.Tpo -c -o gsminer-util.o `test -f 'util.c' || echo '$(srcdir)/'`util.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsminer-util.Tpo $(DEPDIR)/gsminer-util.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='util.c' object='gsminer-util.o' libtool=no @AMDEPBACKSLASH@
+gszminer-util.o: util.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gszminer-util.o -MD -MP -MF $(DEPDIR)/gszminer-util.Tpo -c -o gszminer-util.o `test -f 'util.c' || echo '$(srcdir)/'`util.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gszminer-util.Tpo $(DEPDIR)/gszminer-util.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='util.c' object='gszminer-util.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gsminer-util.o `test -f 'util.c' || echo '$(srcdir)/'`util.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gszminer-util.o `test -f 'util.c' || echo '$(srcdir)/'`util.c
 
-gsminer-util.obj: util.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gsminer-util.obj -MD -MP -MF $(DEPDIR)/gsminer-util.Tpo -c -o gsminer-util.obj `if test -f 'util.c'; then $(CYGPATH_W) 'util.c'; else $(CYGPATH_W) '$(srcdir)/util.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsminer-util.Tpo $(DEPDIR)/gsminer-util.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='util.c' object='gsminer-util.obj' libtool=no @AMDEPBACKSLASH@
+gszminer-util.obj: util.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gszminer-util.obj -MD -MP -MF $(DEPDIR)/gszminer-util.Tpo -c -o gszminer-util.obj `if test -f 'util.c'; then $(CYGPATH_W) 'util.c'; else $(CYGPATH_W) '$(srcdir)/util.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gszminer-util.Tpo $(DEPDIR)/gszminer-util.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='util.c' object='gszminer-util.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gsminer-util.obj `if test -f 'util.c'; then $(CYGPATH_W) 'util.c'; else $(CYGPATH_W) '$(srcdir)/util.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gszminer-util.obj `if test -f 'util.c'; then $(CYGPATH_W) 'util.c'; else $(CYGPATH_W) '$(srcdir)/util.c'; fi`
 
-gsminer-sha2.o: sha2.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gsminer-sha2.o -MD -MP -MF $(DEPDIR)/gsminer-sha2.Tpo -c -o gsminer-sha2.o `test -f 'sha2.c' || echo '$(srcdir)/'`sha2.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsminer-sha2.Tpo $(DEPDIR)/gsminer-sha2.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='sha2.c' object='gsminer-sha2.o' libtool=no @AMDEPBACKSLASH@
+gszminer-sha2.o: sha2.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gszminer-sha2.o -MD -MP -MF $(DEPDIR)/gszminer-sha2.Tpo -c -o gszminer-sha2.o `test -f 'sha2.c' || echo '$(srcdir)/'`sha2.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gszminer-sha2.Tpo $(DEPDIR)/gszminer-sha2.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='sha2.c' object='gszminer-sha2.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gsminer-sha2.o `test -f 'sha2.c' || echo '$(srcdir)/'`sha2.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gszminer-sha2.o `test -f 'sha2.c' || echo '$(srcdir)/'`sha2.c
 
-gsminer-sha2.obj: sha2.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gsminer-sha2.obj -MD -MP -MF $(DEPDIR)/gsminer-sha2.Tpo -c -o gsminer-sha2.obj `if test -f 'sha2.c'; then $(CYGPATH_W) 'sha2.c'; else $(CYGPATH_W) '$(srcdir)/sha2.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsminer-sha2.Tpo $(DEPDIR)/gsminer-sha2.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='sha2.c' object='gsminer-sha2.obj' libtool=no @AMDEPBACKSLASH@
+gszminer-sha2.obj: sha2.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gszminer-sha2.obj -MD -MP -MF $(DEPDIR)/gszminer-sha2.Tpo -c -o gszminer-sha2.obj `if test -f 'sha2.c'; then $(CYGPATH_W) 'sha2.c'; else $(CYGPATH_W) '$(srcdir)/sha2.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gszminer-sha2.Tpo $(DEPDIR)/gszminer-sha2.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='sha2.c' object='gszminer-sha2.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gsminer-sha2.obj `if test -f 'sha2.c'; then $(CYGPATH_W) 'sha2.c'; else $(CYGPATH_W) '$(srcdir)/sha2.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gszminer-sha2.obj `if test -f 'sha2.c'; then $(CYGPATH_W) 'sha2.c'; else $(CYGPATH_W) '$(srcdir)/sha2.c'; fi`
 
-gsminer-api.o: api.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gsminer-api.o -MD -MP -MF $(DEPDIR)/gsminer-api.Tpo -c -o gsminer-api.o `test -f 'api.c' || echo '$(srcdir)/'`api.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsminer-api.Tpo $(DEPDIR)/gsminer-api.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='api.c' object='gsminer-api.o' libtool=no @AMDEPBACKSLASH@
+gszminer-api.o: api.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gszminer-api.o -MD -MP -MF $(DEPDIR)/gszminer-api.Tpo -c -o gszminer-api.o `test -f 'api.c' || echo '$(srcdir)/'`api.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gszminer-api.Tpo $(DEPDIR)/gszminer-api.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='api.c' object='gszminer-api.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gsminer-api.o `test -f 'api.c' || echo '$(srcdir)/'`api.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gszminer-api.o `test -f 'api.c' || echo '$(srcdir)/'`api.c
 
-gsminer-api.obj: api.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gsminer-api.obj -MD -MP -MF $(DEPDIR)/gsminer-api.Tpo -c -o gsminer-api.obj `if test -f 'api.c'; then $(CYGPATH_W) 'api.c'; else $(CYGPATH_W) '$(srcdir)/api.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsminer-api.Tpo $(DEPDIR)/gsminer-api.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='api.c' object='gsminer-api.obj' libtool=no @AMDEPBACKSLASH@
+gszminer-api.obj: api.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gszminer-api.obj -MD -MP -MF $(DEPDIR)/gszminer-api.Tpo -c -o gszminer-api.obj `if test -f 'api.c'; then $(CYGPATH_W) 'api.c'; else $(CYGPATH_W) '$(srcdir)/api.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gszminer-api.Tpo $(DEPDIR)/gszminer-api.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='api.c' object='gszminer-api.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gsminer-api.obj `if test -f 'api.c'; then $(CYGPATH_W) 'api.c'; else $(CYGPATH_W) '$(srcdir)/api.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gszminer-api.obj `if test -f 'api.c'; then $(CYGPATH_W) 'api.c'; else $(CYGPATH_W) '$(srcdir)/api.c'; fi`
 
-gsminer-logging.o: logging.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gsminer-logging.o -MD -MP -MF $(DEPDIR)/gsminer-logging.Tpo -c -o gsminer-logging.o `test -f 'logging.c' || echo '$(srcdir)/'`logging.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsminer-logging.Tpo $(DEPDIR)/gsminer-logging.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='logging.c' object='gsminer-logging.o' libtool=no @AMDEPBACKSLASH@
+gszminer-logging.o: logging.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gszminer-logging.o -MD -MP -MF $(DEPDIR)/gszminer-logging.Tpo -c -o gszminer-logging.o `test -f 'logging.c' || echo '$(srcdir)/'`logging.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gszminer-logging.Tpo $(DEPDIR)/gszminer-logging.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='logging.c' object='gszminer-logging.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gsminer-logging.o `test -f 'logging.c' || echo '$(srcdir)/'`logging.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gszminer-logging.o `test -f 'logging.c' || echo '$(srcdir)/'`logging.c
 
-gsminer-logging.obj: logging.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gsminer-logging.obj -MD -MP -MF $(DEPDIR)/gsminer-logging.Tpo -c -o gsminer-logging.obj `if test -f 'logging.c'; then $(CYGPATH_W) 'logging.c'; else $(CYGPATH_W) '$(srcdir)/logging.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsminer-logging.Tpo $(DEPDIR)/gsminer-logging.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='logging.c' object='gsminer-logging.obj' libtool=no @AMDEPBACKSLASH@
+gszminer-logging.obj: logging.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gszminer-logging.obj -MD -MP -MF $(DEPDIR)/gszminer-logging.Tpo -c -o gszminer-logging.obj `if test -f 'logging.c'; then $(CYGPATH_W) 'logging.c'; else $(CYGPATH_W) '$(srcdir)/logging.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gszminer-logging.Tpo $(DEPDIR)/gszminer-logging.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='logging.c' object='gszminer-logging.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gsminer-logging.obj `if test -f 'logging.c'; then $(CYGPATH_W) 'logging.c'; else $(CYGPATH_W) '$(srcdir)/logging.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gszminer-logging.obj `if test -f 'logging.c'; then $(CYGPATH_W) 'logging.c'; else $(CYGPATH_W) '$(srcdir)/logging.c'; fi`
 
-gsminer-klist.o: klist.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gsminer-klist.o -MD -MP -MF $(DEPDIR)/gsminer-klist.Tpo -c -o gsminer-klist.o `test -f 'klist.c' || echo '$(srcdir)/'`klist.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsminer-klist.Tpo $(DEPDIR)/gsminer-klist.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='klist.c' object='gsminer-klist.o' libtool=no @AMDEPBACKSLASH@
+gszminer-klist.o: klist.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gszminer-klist.o -MD -MP -MF $(DEPDIR)/gszminer-klist.Tpo -c -o gszminer-klist.o `test -f 'klist.c' || echo '$(srcdir)/'`klist.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gszminer-klist.Tpo $(DEPDIR)/gszminer-klist.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='klist.c' object='gszminer-klist.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gsminer-klist.o `test -f 'klist.c' || echo '$(srcdir)/'`klist.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gszminer-klist.o `test -f 'klist.c' || echo '$(srcdir)/'`klist.c
 
-gsminer-klist.obj: klist.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gsminer-klist.obj -MD -MP -MF $(DEPDIR)/gsminer-klist.Tpo -c -o gsminer-klist.obj `if test -f 'klist.c'; then $(CYGPATH_W) 'klist.c'; else $(CYGPATH_W) '$(srcdir)/klist.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsminer-klist.Tpo $(DEPDIR)/gsminer-klist.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='klist.c' object='gsminer-klist.obj' libtool=no @AMDEPBACKSLASH@
+gszminer-klist.obj: klist.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gszminer-klist.obj -MD -MP -MF $(DEPDIR)/gszminer-klist.Tpo -c -o gszminer-klist.obj `if test -f 'klist.c'; then $(CYGPATH_W) 'klist.c'; else $(CYGPATH_W) '$(srcdir)/klist.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gszminer-klist.Tpo $(DEPDIR)/gszminer-klist.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='klist.c' object='gszminer-klist.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gsminer-klist.obj `if test -f 'klist.c'; then $(CYGPATH_W) 'klist.c'; else $(CYGPATH_W) '$(srcdir)/klist.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gszminer-klist.obj `if test -f 'klist.c'; then $(CYGPATH_W) 'klist.c'; else $(CYGPATH_W) '$(srcdir)/klist.c'; fi`
 
-gsminer-noncedup.o: noncedup.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gsminer-noncedup.o -MD -MP -MF $(DEPDIR)/gsminer-noncedup.Tpo -c -o gsminer-noncedup.o `test -f 'noncedup.c' || echo '$(srcdir)/'`noncedup.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsminer-noncedup.Tpo $(DEPDIR)/gsminer-noncedup.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='noncedup.c' object='gsminer-noncedup.o' libtool=no @AMDEPBACKSLASH@
+gszminer-noncedup.o: noncedup.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gszminer-noncedup.o -MD -MP -MF $(DEPDIR)/gszminer-noncedup.Tpo -c -o gszminer-noncedup.o `test -f 'noncedup.c' || echo '$(srcdir)/'`noncedup.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gszminer-noncedup.Tpo $(DEPDIR)/gszminer-noncedup.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='noncedup.c' object='gszminer-noncedup.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gsminer-noncedup.o `test -f 'noncedup.c' || echo '$(srcdir)/'`noncedup.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gszminer-noncedup.o `test -f 'noncedup.c' || echo '$(srcdir)/'`noncedup.c
 
-gsminer-noncedup.obj: noncedup.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gsminer-noncedup.obj -MD -MP -MF $(DEPDIR)/gsminer-noncedup.Tpo -c -o gsminer-noncedup.obj `if test -f 'noncedup.c'; then $(CYGPATH_W) 'noncedup.c'; else $(CYGPATH_W) '$(srcdir)/noncedup.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsminer-noncedup.Tpo $(DEPDIR)/gsminer-noncedup.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='noncedup.c' object='gsminer-noncedup.obj' libtool=no @AMDEPBACKSLASH@
+gszminer-noncedup.obj: noncedup.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gszminer-noncedup.obj -MD -MP -MF $(DEPDIR)/gszminer-noncedup.Tpo -c -o gszminer-noncedup.obj `if test -f 'noncedup.c'; then $(CYGPATH_W) 'noncedup.c'; else $(CYGPATH_W) '$(srcdir)/noncedup.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gszminer-noncedup.Tpo $(DEPDIR)/gszminer-noncedup.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='noncedup.c' object='gszminer-noncedup.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gsminer-noncedup.obj `if test -f 'noncedup.c'; then $(CYGPATH_W) 'noncedup.c'; else $(CYGPATH_W) '$(srcdir)/noncedup.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gszminer-noncedup.obj `if test -f 'noncedup.c'; then $(CYGPATH_W) 'noncedup.c'; else $(CYGPATH_W) '$(srcdir)/noncedup.c'; fi`
 
-gsminer-scrypt.o: scrypt.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gsminer-scrypt.o -MD -MP -MF $(DEPDIR)/gsminer-scrypt.Tpo -c -o gsminer-scrypt.o `test -f 'scrypt.c' || echo '$(srcdir)/'`scrypt.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsminer-scrypt.Tpo $(DEPDIR)/gsminer-scrypt.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='scrypt.c' object='gsminer-scrypt.o' libtool=no @AMDEPBACKSLASH@
+gszminer-scrypt.o: scrypt.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gszminer-scrypt.o -MD -MP -MF $(DEPDIR)/gszminer-scrypt.Tpo -c -o gszminer-scrypt.o `test -f 'scrypt.c' || echo '$(srcdir)/'`scrypt.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gszminer-scrypt.Tpo $(DEPDIR)/gszminer-scrypt.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='scrypt.c' object='gszminer-scrypt.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gsminer-scrypt.o `test -f 'scrypt.c' || echo '$(srcdir)/'`scrypt.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gszminer-scrypt.o `test -f 'scrypt.c' || echo '$(srcdir)/'`scrypt.c
 
-gsminer-scrypt.obj: scrypt.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gsminer-scrypt.obj -MD -MP -MF $(DEPDIR)/gsminer-scrypt.Tpo -c -o gsminer-scrypt.obj `if test -f 'scrypt.c'; then $(CYGPATH_W) 'scrypt.c'; else $(CYGPATH_W) '$(srcdir)/scrypt.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsminer-scrypt.Tpo $(DEPDIR)/gsminer-scrypt.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='scrypt.c' object='gsminer-scrypt.obj' libtool=no @AMDEPBACKSLASH@
+gszminer-scrypt.obj: scrypt.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gszminer-scrypt.obj -MD -MP -MF $(DEPDIR)/gszminer-scrypt.Tpo -c -o gszminer-scrypt.obj `if test -f 'scrypt.c'; then $(CYGPATH_W) 'scrypt.c'; else $(CYGPATH_W) '$(srcdir)/scrypt.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gszminer-scrypt.Tpo $(DEPDIR)/gszminer-scrypt.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='scrypt.c' object='gszminer-scrypt.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gsminer-scrypt.obj `if test -f 'scrypt.c'; then $(CYGPATH_W) 'scrypt.c'; else $(CYGPATH_W) '$(srcdir)/scrypt.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gszminer-scrypt.obj `if test -f 'scrypt.c'; then $(CYGPATH_W) 'scrypt.c'; else $(CYGPATH_W) '$(srcdir)/scrypt.c'; fi`
 
-gsminer-fpgautils.o: fpgautils.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gsminer-fpgautils.o -MD -MP -MF $(DEPDIR)/gsminer-fpgautils.Tpo -c -o gsminer-fpgautils.o `test -f 'fpgautils.c' || echo '$(srcdir)/'`fpgautils.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsminer-fpgautils.Tpo $(DEPDIR)/gsminer-fpgautils.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='fpgautils.c' object='gsminer-fpgautils.o' libtool=no @AMDEPBACKSLASH@
+gszminer-fpgautils.o: fpgautils.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gszminer-fpgautils.o -MD -MP -MF $(DEPDIR)/gszminer-fpgautils.Tpo -c -o gszminer-fpgautils.o `test -f 'fpgautils.c' || echo '$(srcdir)/'`fpgautils.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gszminer-fpgautils.Tpo $(DEPDIR)/gszminer-fpgautils.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='fpgautils.c' object='gszminer-fpgautils.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gsminer-fpgautils.o `test -f 'fpgautils.c' || echo '$(srcdir)/'`fpgautils.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gszminer-fpgautils.o `test -f 'fpgautils.c' || echo '$(srcdir)/'`fpgautils.c
 
-gsminer-fpgautils.obj: fpgautils.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gsminer-fpgautils.obj -MD -MP -MF $(DEPDIR)/gsminer-fpgautils.Tpo -c -o gsminer-fpgautils.obj `if test -f 'fpgautils.c'; then $(CYGPATH_W) 'fpgautils.c'; else $(CYGPATH_W) '$(srcdir)/fpgautils.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsminer-fpgautils.Tpo $(DEPDIR)/gsminer-fpgautils.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='fpgautils.c' object='gsminer-fpgautils.obj' libtool=no @AMDEPBACKSLASH@
+gszminer-fpgautils.obj: fpgautils.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gszminer-fpgautils.obj -MD -MP -MF $(DEPDIR)/gszminer-fpgautils.Tpo -c -o gszminer-fpgautils.obj `if test -f 'fpgautils.c'; then $(CYGPATH_W) 'fpgautils.c'; else $(CYGPATH_W) '$(srcdir)/fpgautils.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gszminer-fpgautils.Tpo $(DEPDIR)/gszminer-fpgautils.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='fpgautils.c' object='gszminer-fpgautils.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gsminer-fpgautils.obj `if test -f 'fpgautils.c'; then $(CYGPATH_W) 'fpgautils.c'; else $(CYGPATH_W) '$(srcdir)/fpgautils.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gszminer-fpgautils.obj `if test -f 'fpgautils.c'; then $(CYGPATH_W) 'fpgautils.c'; else $(CYGPATH_W) '$(srcdir)/fpgautils.c'; fi`
 
-gsminer-usbutils.o: usbutils.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gsminer-usbutils.o -MD -MP -MF $(DEPDIR)/gsminer-usbutils.Tpo -c -o gsminer-usbutils.o `test -f 'usbutils.c' || echo '$(srcdir)/'`usbutils.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsminer-usbutils.Tpo $(DEPDIR)/gsminer-usbutils.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='usbutils.c' object='gsminer-usbutils.o' libtool=no @AMDEPBACKSLASH@
+gszminer-usbutils.o: usbutils.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gszminer-usbutils.o -MD -MP -MF $(DEPDIR)/gszminer-usbutils.Tpo -c -o gszminer-usbutils.o `test -f 'usbutils.c' || echo '$(srcdir)/'`usbutils.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gszminer-usbutils.Tpo $(DEPDIR)/gszminer-usbutils.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='usbutils.c' object='gszminer-usbutils.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gsminer-usbutils.o `test -f 'usbutils.c' || echo '$(srcdir)/'`usbutils.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gszminer-usbutils.o `test -f 'usbutils.c' || echo '$(srcdir)/'`usbutils.c
 
-gsminer-usbutils.obj: usbutils.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gsminer-usbutils.obj -MD -MP -MF $(DEPDIR)/gsminer-usbutils.Tpo -c -o gsminer-usbutils.obj `if test -f 'usbutils.c'; then $(CYGPATH_W) 'usbutils.c'; else $(CYGPATH_W) '$(srcdir)/usbutils.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsminer-usbutils.Tpo $(DEPDIR)/gsminer-usbutils.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='usbutils.c' object='gsminer-usbutils.obj' libtool=no @AMDEPBACKSLASH@
+gszminer-usbutils.obj: usbutils.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gszminer-usbutils.obj -MD -MP -MF $(DEPDIR)/gszminer-usbutils.Tpo -c -o gszminer-usbutils.obj `if test -f 'usbutils.c'; then $(CYGPATH_W) 'usbutils.c'; else $(CYGPATH_W) '$(srcdir)/usbutils.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gszminer-usbutils.Tpo $(DEPDIR)/gszminer-usbutils.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='usbutils.c' object='gszminer-usbutils.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gsminer-usbutils.obj `if test -f 'usbutils.c'; then $(CYGPATH_W) 'usbutils.c'; else $(CYGPATH_W) '$(srcdir)/usbutils.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gszminer-usbutils.obj `if test -f 'usbutils.c'; then $(CYGPATH_W) 'usbutils.c'; else $(CYGPATH_W) '$(srcdir)/usbutils.c'; fi`
 
-gsminer-driver-gridseed.o: driver-gridseed.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gsminer-driver-gridseed.o -MD -MP -MF $(DEPDIR)/gsminer-driver-gridseed.Tpo -c -o gsminer-driver-gridseed.o `test -f 'driver-gridseed.c' || echo '$(srcdir)/'`driver-gridseed.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsminer-driver-gridseed.Tpo $(DEPDIR)/gsminer-driver-gridseed.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='driver-gridseed.c' object='gsminer-driver-gridseed.o' libtool=no @AMDEPBACKSLASH@
+gszminer-driver-gridseed.o: driver-gridseed.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gszminer-driver-gridseed.o -MD -MP -MF $(DEPDIR)/gszminer-driver-gridseed.Tpo -c -o gszminer-driver-gridseed.o `test -f 'driver-gridseed.c' || echo '$(srcdir)/'`driver-gridseed.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gszminer-driver-gridseed.Tpo $(DEPDIR)/gszminer-driver-gridseed.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='driver-gridseed.c' object='gszminer-driver-gridseed.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gsminer-driver-gridseed.o `test -f 'driver-gridseed.c' || echo '$(srcdir)/'`driver-gridseed.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gszminer-driver-gridseed.o `test -f 'driver-gridseed.c' || echo '$(srcdir)/'`driver-gridseed.c
 
-gsminer-driver-gridseed.obj: driver-gridseed.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gsminer-driver-gridseed.obj -MD -MP -MF $(DEPDIR)/gsminer-driver-gridseed.Tpo -c -o gsminer-driver-gridseed.obj `if test -f 'driver-gridseed.c'; then $(CYGPATH_W) 'driver-gridseed.c'; else $(CYGPATH_W) '$(srcdir)/driver-gridseed.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsminer-driver-gridseed.Tpo $(DEPDIR)/gsminer-driver-gridseed.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='driver-gridseed.c' object='gsminer-driver-gridseed.obj' libtool=no @AMDEPBACKSLASH@
+gszminer-driver-gridseed.obj: driver-gridseed.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gszminer-driver-gridseed.obj -MD -MP -MF $(DEPDIR)/gszminer-driver-gridseed.Tpo -c -o gszminer-driver-gridseed.obj `if test -f 'driver-gridseed.c'; then $(CYGPATH_W) 'driver-gridseed.c'; else $(CYGPATH_W) '$(srcdir)/driver-gridseed.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gszminer-driver-gridseed.Tpo $(DEPDIR)/gszminer-driver-gridseed.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='driver-gridseed.c' object='gszminer-driver-gridseed.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gsminer-driver-gridseed.obj `if test -f 'driver-gridseed.c'; then $(CYGPATH_W) 'driver-gridseed.c'; else $(CYGPATH_W) '$(srcdir)/driver-gridseed.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gszminer-driver-gridseed.obj `if test -f 'driver-gridseed.c'; then $(CYGPATH_W) 'driver-gridseed.c'; else $(CYGPATH_W) '$(srcdir)/driver-gridseed.c'; fi`
 
-gsminer-driver-zeus.o: driver-zeus.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gsminer-driver-zeus.o -MD -MP -MF $(DEPDIR)/gsminer-driver-zeus.Tpo -c -o gsminer-driver-zeus.o `test -f 'driver-zeus.c' || echo '$(srcdir)/'`driver-zeus.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsminer-driver-zeus.Tpo $(DEPDIR)/gsminer-driver-zeus.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='driver-zeus.c' object='gsminer-driver-zeus.o' libtool=no @AMDEPBACKSLASH@
+gszminer-driver-zeus.o: driver-zeus.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gszminer-driver-zeus.o -MD -MP -MF $(DEPDIR)/gszminer-driver-zeus.Tpo -c -o gszminer-driver-zeus.o `test -f 'driver-zeus.c' || echo '$(srcdir)/'`driver-zeus.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gszminer-driver-zeus.Tpo $(DEPDIR)/gszminer-driver-zeus.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='driver-zeus.c' object='gszminer-driver-zeus.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gsminer-driver-zeus.o `test -f 'driver-zeus.c' || echo '$(srcdir)/'`driver-zeus.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gszminer-driver-zeus.o `test -f 'driver-zeus.c' || echo '$(srcdir)/'`driver-zeus.c
 
-gsminer-driver-zeus.obj: driver-zeus.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gsminer-driver-zeus.obj -MD -MP -MF $(DEPDIR)/gsminer-driver-zeus.Tpo -c -o gsminer-driver-zeus.obj `if test -f 'driver-zeus.c'; then $(CYGPATH_W) 'driver-zeus.c'; else $(CYGPATH_W) '$(srcdir)/driver-zeus.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsminer-driver-zeus.Tpo $(DEPDIR)/gsminer-driver-zeus.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='driver-zeus.c' object='gsminer-driver-zeus.obj' libtool=no @AMDEPBACKSLASH@
+gszminer-driver-zeus.obj: driver-zeus.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gszminer-driver-zeus.obj -MD -MP -MF $(DEPDIR)/gszminer-driver-zeus.Tpo -c -o gszminer-driver-zeus.obj `if test -f 'driver-zeus.c'; then $(CYGPATH_W) 'driver-zeus.c'; else $(CYGPATH_W) '$(srcdir)/driver-zeus.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gszminer-driver-zeus.Tpo $(DEPDIR)/gszminer-driver-zeus.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='driver-zeus.c' object='gszminer-driver-zeus.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gsminer-driver-zeus.obj `if test -f 'driver-zeus.c'; then $(CYGPATH_W) 'driver-zeus.c'; else $(CYGPATH_W) '$(srcdir)/driver-zeus.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gszminer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gszminer-driver-zeus.obj `if test -f 'driver-zeus.c'; then $(CYGPATH_W) 'driver-zeus.c'; else $(CYGPATH_W) '$(srcdir)/driver-zeus.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo

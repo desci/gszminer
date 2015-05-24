@@ -11,12 +11,12 @@ m4_define([lt_age], v_min)
 ##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
 ##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
-AC_INIT([gsminer], [v_ver], [slacker@radicaletehr.com])
+AC_INIT([gszminer], [v_ver], [slacker@radicaletehr.com])
 
 AC_PREREQ(2.59)
 AC_CANONICAL_SYSTEM
 AC_CONFIG_MACRO_DIR([m4])
-AC_CONFIG_SRCDIR([cgminer.c])
+AC_CONFIG_SRCDIR([gszminer.c])
 AC_CONFIG_HEADERS([config.h])
 
 AM_INIT_AUTOMAKE([foreign subdir-objects])

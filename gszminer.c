@@ -330,7 +330,7 @@ static struct stratum_share *stratum_shares = NULL;
 
 char *opt_socks_proxy = NULL;
 
-static const char def_conf[] = "gsminer.conf";
+static const char def_conf[] = "gszminer.conf";
 static char *default_config;
 static bool config_loaded;
 static int include_count;
@@ -5147,7 +5147,7 @@ void default_save_file(char *filename)
 	}
 	else
 		strcpy(filename, "");
-	strcat(filename, ".gsminer/");
+	strcat(filename, ".gszminer/");
 	mkdir(filename, 0777);
 #else
 	strcpy(filename, "");
